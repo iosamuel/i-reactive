@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Reactive</title>
+    <style>
+      .text-large {
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+    <span i-data="otro"></span>
+    <input type="text" i-model="otro" />
+    <input type="text" i-model="mensaje" />
+    <input type="text" i-model="image" />
+    <img i-bind="src:image" width="50" height="50" /> -->
+
+    <img i-bind="src:image" width="300" />
+    <input type="text" i-model="image" />
+
+    <script src="i-reactive.js"></script>
+    <script>
+      const iApp = new iReactive({
+        data() {
+          return {
+            image: ""
+          };
+        },
+        mounted() {
+          fetch("https://aws.random.cat/meow")
+            .then(data => data.json())
+            .then(image => {
+              this.image = image.file;
+            });
+        }
+      });
+    </script>
+  </body>
+</html>
